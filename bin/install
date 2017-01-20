@@ -1,5 +1,20 @@
 #!/bin/bash
 
+if [ ! -e "/usr/bin/docker" ]; then
+        echo "[+] installing docker"
+        wget -qO- https://get.docker.com/ | sh
+        sudo usermod -aG docker $(whoami)
+        echo "[+] done installing docker"
+fi
+
+if docker images | grep -q 'talus-amqp'; then
+	echo "[+] talus-amqp docker rabbitmq amqp container already installed"
+	echo "If you want to rebuild this container, perform docker rmi talus-amqp"
+else
+	echo "[+] installing talus-amqp docker rabbitmq amqp container"
+	docker pull talus/talus-amqp
+fi
+
 sudo mkdir -p /talus/data /var/log/talus/rabbitmq
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -25,6 +40,9 @@ ExecStop=$(readlink -f $DIR)/stop
 WantedBy=default.target
 EOF
 sudo chmod 664 /etc/systemd/system/docker.talus-amqp.service
+sudo systemctl daemon-reload
+sudo systemctl start docker.talus-amqp
+sudo systemctl enable docker.talus-amqp
 
 else
 
@@ -40,5 +58,7 @@ script
    $(readlink -f $DIR)/start
 end script
 EOF
+
+sudo start talus-amqp
 
 fi
