@@ -28,7 +28,7 @@ cat << EOF | sudo tee /etc/systemd/system/docker.talus-amqp.service > /dev/null
 [Unit]
 Description=Talus AMQP
 Requires=docker.service
-After=docker.service
+After=docker.talus-db.service
 
 [Service]
 Restart=always
