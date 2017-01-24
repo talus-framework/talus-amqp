@@ -1,6 +1,6 @@
 # Talus Advanced Message Queuing Protocol
 
-rabbitmq's amqp messaging queuing protocl (amqp) was chosen for talus' communication mechanism.
+rabbitmq's amqp messaging queuing protocol (amqp) was chosen as the communication mechanism for Talus.
 
 
 # Installation
@@ -11,3 +11,10 @@ cd talus-amqp/bin
 ```
 
 Log files can be found at /var/log/talus/rabbitmq
+
+We have published a talus-amqp docker container here:
+
+https://hub.docker.com/r/talus/talus-amqp/
+
+
+
