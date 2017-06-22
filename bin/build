@@ -5,6 +5,4 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd "$DIR/.."
 
 sudo docker build $@ -t talus/talus-amqp .
-docker login
-docker push talus/talus-amqp
 
